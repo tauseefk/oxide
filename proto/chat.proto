@@ -1,0 +1,67 @@
+syntax = "proto3";
+package oxide;
+
+//==================INDIVIDUAL MESSAGES==================//
+message Text {
+  string id = 1;
+  string content = 2;
+  string from = 3; // potential useless if we bottom up from chats to individual texts
+  string chatId = 4;
+}
+
+message FetchTextsForChatRequest {
+  string chatId = 1;
+}
+
+message SendTextToUserRequest {
+  string content = 1;
+  string chatId = 2;
+  string from = 3;
+}
+
+//=========================CHATS=========================//
+message Chat {
+  string id = 1;
+  repeated string participantIds = 2;
+}
+
+message CreateNewChatRequest {
+  string from = 1;
+  string to = 2;
+}
+
+message FetchChatsForUserRequest {
+  string userId = 1;
+}
+
+//=========================USERS=========================//
+message User {
+  string id = 1; // also used as username for simplicity
+  string name = 2;
+}
+
+message FetchUsersRequest { }
+
+message SignupOrLoginUserRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginInfo {
+  bool loggedIn = 1;
+}
+
+message TextSent {
+  string text = 1;
+}
+
+service ChatService {
+  rpc LoginUser(SignupOrLoginUserRequest) returns (LoginInfo) {}
+  rpc SignupUser(SignupOrLoginUserRequest) returns (LoginInfo) {}
+
+  rpc FetchTextsForChat(FetchTextsForChatRequest) returns (stream Text) {}
+  rpc FetchChatsForUser(FetchChatsForUserRequest) returns (stream Chat) {}
+  rpc FetchUsers(FetchUsersRequest) returns (stream User) {}
+  rpc SendTextToUser(SendTextToUserRequest) returns (TextSent) {}
+  rpc CreateNewChat(CreateNewChatRequest) returns (Chat) {}
+}

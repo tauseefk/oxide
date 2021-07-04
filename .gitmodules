@@ -1,0 +1,6 @@
+[submodule "oxide-client"]
+	path = oxide-client
+	url = git@github.com:tauseefk/oxide-client.git
+[submodule "oxide-server"]
+	path = oxide-server
+	url = git@github.com:tauseefk/oxide-server.git
