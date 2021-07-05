@@ -11,7 +11,9 @@ Generate proto files for client
 
     ./protogen.sh
 Look for README.md files on the <this_repo>-client/server repositories.
-    
+
+
+### Docker setup would require modifications to envoy.yaml in client, and model.rs in server
 ## Setup server and database with docker
 
     docker build -t oxide-server .
